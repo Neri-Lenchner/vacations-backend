@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import {loggerMiddleware} from "./middleware/logger-middleware";
+import {errorMiddleware} from "./middleware/error-middleware";
 
 
 class App {
@@ -7,6 +9,9 @@ class App {
         const server = express();
         server.use(cors());
         server.use(express.json());
+        server.use(loggerMiddleware.consoleLog);
+        server.use(errorMiddleware.serverError);
+        server.use(errorMiddleware.catchAll);
     }
 }
 
