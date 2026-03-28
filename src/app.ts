@@ -12,6 +12,8 @@ class App {
         server.use(loggerMiddleware.consoleLog);
         server.use(errorMiddleware.serverError);
         server.use(errorMiddleware.catchAll);
+
+        server.listen(4000, () => console.log("Server is running on port 4000")); // New process.
     }
 }
 
