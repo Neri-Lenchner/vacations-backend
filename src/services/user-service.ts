@@ -10,16 +10,13 @@ class UserService {
 
     public async register(user: User): Promise<string> {
 
-        // Validation.
         user.validate();
         const isEmailExist = await this.validateEmail(user.email);
         if (isEmailExist) throw new ValidationError("Email already taken");
         user.password = await securityService.hash(user.password);
-        // console.log(user.password);
 
-        // sql query
         const sql = "insert into users (firstName, lastName, email, password, isAdmin) VALUES (?, ?, ?, ? ,?)";
-        // execute query
+
         const result = await dal.execute(sql, [user.firstName, user.lastName, user.email, user.password, user.isAdmin]) as ResultSetHeader;
         user.id = result.insertId
         return securityService.generateToken(user);
@@ -28,10 +25,10 @@ class UserService {
     public async login(credentials: Credentials): Promise<string> {
         credentials.validate();
         credentials.password = await securityService.hash(credentials.password);
-        // sql query
+
         const sql = "select * from users where email = ?";
         const userList = await dal.execute(sql, [credentials.email]) as User[];
-        const user = userList[0];
+        const user: User = userList[0];
         if (!user) throw new AuthorizationError("Incorrect email or password");
         const isCorrect = await bcrypt.compare(credentials.password, user.password);
         if (!isCorrect) throw new AuthorizationError("Incorrect email or password");
@@ -39,7 +36,7 @@ class UserService {
     }
 
     public async validateEmail(email: string): Promise<boolean> {
-        // sql
+
         const sql = "select * from users where email = ?";
         const userList = await dal.execute(sql, [email]) as User[];
         const user: User = userList[0];
