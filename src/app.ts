@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import {loggerMiddleware} from "./middleware/logger-middleware";
 import {errorMiddleware} from "./middleware/error-middleware";
+import {authController} from "./controllers/auth-controller";
 
 
 class App {
@@ -10,6 +11,7 @@ class App {
         server.use(cors());
         server.use(express.json());
         server.use(loggerMiddleware.consoleLog);
+        server.use(authController.router);
         server.use(errorMiddleware.serverError);
         server.use(errorMiddleware.catchAll);
 
@@ -19,3 +21,11 @@ class App {
 
 const app = new App();
 app.start();
+
+// {
+//     "firstName": "Neri",
+//     "lastName": "Lenchner",
+//     "email": "neri@gmail.com",
+//     "password": "123456789",
+//     "isAdmin": "true"
+// }

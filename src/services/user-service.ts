@@ -9,6 +9,7 @@ import bcrypt from "bcrypt";
 class UserService {
 
     public async register(user: User): Promise<string> {
+
         // Validation.
         user.validate();
         const isEmailExist = await this.validateEmail(user.email);
@@ -17,7 +18,7 @@ class UserService {
         // console.log(user.password);
 
         // sql query
-        const sql = "insert into user (firstName, lastName, email, password, isAdmin) VALUES (?, ?, ?, ? ,?)";
+        const sql = "insert into users (firstName, lastName, email, password, isAdmin) VALUES (?, ?, ?, ? ,?)";
         // execute query
         const result = await dal.execute(sql, [user.firstName, user.lastName, user.email, user.password, user.isAdmin]) as ResultSetHeader;
         user.id = result.insertId
@@ -28,7 +29,7 @@ class UserService {
         credentials.validate();
         credentials.password = await securityService.hash(credentials.password);
         // sql query
-        const sql = "select * from user where email = ?";
+        const sql = "select * from users where email = ?";
         const userList = await dal.execute(sql, [credentials.email]) as User[];
         const user = userList[0];
         if (!user) throw new AuthorizationError("Incorrect email or password");
@@ -39,7 +40,7 @@ class UserService {
 
     public async validateEmail(email: string): Promise<boolean> {
         // sql
-        const sql = "select * from user where email = ?";
+        const sql = "select * from users where email = ?";
         const userList = await dal.execute(sql, [email]) as User[];
         const user: User = userList[0];
         return user !== undefined;
