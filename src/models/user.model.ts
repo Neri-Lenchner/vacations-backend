@@ -1,4 +1,5 @@
 import Joi from "joi";
+import {ValidationError} from "./client-error";
 
 export class User {
     public firstName: string;
@@ -25,5 +26,12 @@ export class User {
         isAdmin: Joi.boolean().required(),
         id: Joi.number().optional().positive()
     });
+
+    public validate() {
+        const result = User.validationSchema.validate(this);
+        if (result.error) {
+            throw new ValidationError(result.error.message);
+        }
+    }
 
 }
