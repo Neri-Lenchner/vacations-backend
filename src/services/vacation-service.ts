@@ -15,6 +15,15 @@ class VacationService {
         return vacation;
     }
 
+    public async getVacationList(): Promise<Vacation[]> {
+
+        const sql = "SELECT * FROM all_vacations";
+
+        const vacationList = await dal.execute(sql) as Vacation[];
+
+        return vacationList;
+    }
+
 }
 
 export const vacationService = new VacationService();
