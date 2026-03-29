@@ -7,7 +7,8 @@ class VacationService {
     public async addVacation(vacation: Vacation): Promise<Vacation> {
 
         vacation.validate();
-        const sql = "insert into all-vacations(destination, description, startDate, endDate, cost, img) values (?, ?, ?, ?, ?, ?)";
+        const sql = "INSERT INTO all_vacations (destination, description, startDate, endDate, cost, img) VALUES (?, ?, ?, ?, ?, ?)";
+
         const result = await dal.execute(sql, [vacation.destination, vacation.description, vacation.startDate, vacation.endDate, vacation.cost, vacation.img]) as ResultSetHeader;
         vacation.id = result.insertId;
 
