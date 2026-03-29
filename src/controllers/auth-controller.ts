@@ -9,8 +9,8 @@ class AuthController {
     router = express.Router();
 
     constructor() {
-        this.router.post("/api/register", this.register);
-        this.router.post("/api/login/", this.login);
+        this.router.post("/api/auth/register", this.register);
+        this.router.post("/api/auth/login/", this.login);
     }
 
     public async register(request: Request, response: Response) {
