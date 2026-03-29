@@ -10,7 +10,7 @@ class VacationController {
     constructor() {
         this.router.get("/api/vacation/", this.getVacationListOffset);
         this.router.get("/api/vacation-list/", this.getVacationList);
-        this.router.post("/api/vacation/", this.addVacation);
+        this.router.post("/api/vacation", this.addVacation);
         this.router.put("/api/vacation/:id", this.updateVacation);
         this.router.delete("/api/vacation/:id", this.deleteVacation);
     }
