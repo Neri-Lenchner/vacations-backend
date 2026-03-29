@@ -14,6 +14,7 @@ class UserService {
         const isEmailExist = await this.validateEmail(user.email);
         if (isEmailExist) throw new ValidationError("Email already taken");
         user.password = await securityService.hash(user.password);
+        console.log(user.password);
 
         const sql = "insert into users (firstName, lastName, email, password, isAdmin) VALUES (?, ?, ?, ? ,?)";
 
@@ -24,7 +25,7 @@ class UserService {
 
     public async login(credentials: Credentials): Promise<string> {
         credentials.validate();
-        credentials.password = await securityService.hash(credentials.password);
+        // credentials.password = await securityService.hash(credentials.password);
 
         const sql = "select * from users where email = ?";
         const userList = await dal.execute(sql, [credentials.email]) as User[];

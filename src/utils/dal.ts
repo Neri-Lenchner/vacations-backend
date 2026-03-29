@@ -8,6 +8,7 @@ class Dal {
         user: appConfig.user,
         password: appConfig.password,
         database: appConfig.database,
+        timezone: '+00:00'  // This prevents timezone conversion
     }
 
     private connection = mysql2.createPool(this.options);

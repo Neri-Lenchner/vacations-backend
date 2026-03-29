@@ -6,16 +6,16 @@ import {appConfig} from "../utils/app-config";
 
 class SecurityService {
 
-    public async hash(text: string): Promise<string> {
+    public async hash(passWord: string): Promise<string> {
         // return crypto.createHash("sha512").update(text).digest("hex");
-        return await bcrypt.hash(text, 10);
+        return await bcrypt.hash(passWord, 10);
     }
 
     public generateToken(user: User): string  {
         delete (user as any).password;
         const container = { user };
         const options: SignOptions = {expiresIn: "30y"};
-        return jwt.sign(container, "This is my secret key", options);
+        return jwt.sign(container, appConfig.secretKey, options);
     }
 
     public validateToken(token: string): boolean {

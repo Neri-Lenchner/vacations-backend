@@ -22,6 +22,7 @@ class AuthController {
     }
 
     public async login(request: Request, response: Response) {
+        console.log("Login called, request.body:", request.body);
         const credentials: Credentials = new Credentials(request.body);
         const token = await userService.login(credentials);
         response.json({token});
