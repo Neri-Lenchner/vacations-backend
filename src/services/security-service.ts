@@ -29,6 +29,19 @@ class SecurityService {
         }
     }
 
+    public validateAdmin(token: string): boolean {
+        if (!token) return false;
+        try {
+            jwt.verify(token, appConfig.secretKey);
+            const container = jwt.decode(token) as { user: User }
+            const user: User = container.user;
+            return user.isAdmin;
+        }
+        catch (error) {
+            return false;
+        }
+    }
+
 }
 
 export const securityService = new SecurityService();
