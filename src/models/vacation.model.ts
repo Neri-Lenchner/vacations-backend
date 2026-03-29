@@ -1,3 +1,6 @@
+import Joi from "joi";
+import {ValidationError} from "./client-error";
+
 export class Vacation {
     public destination: string;
     public description: string;
@@ -15,5 +18,22 @@ export class Vacation {
         this.cost = vacation.cost;
         this.img = vacation.img;
         this.id = vacation.id;
+    }
+
+    private static validationSchema = Joi.object({
+        destination: Joi.string().required().min(2).max(20),
+        description: Joi.string().required().min(2).max(100),
+        startDate: Joi.string().required(),
+        endDate: Joi.string().required(),
+        cost: Joi.number().required().positive(),
+        img: Joi.string().required(),
+        id: Joi.number().optional().positive()
+    });
+
+    public validate() {
+        const result = Vacation.validationSchema.validate(this);
+        if (result.error) {
+            throw new ValidationError(result.error.message);
+        }
     }
 }
