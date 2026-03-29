@@ -1,6 +1,7 @@
 import {ResultSetHeader} from "mysql2";
 import {dal} from "../utils/dal";
 import {Vacation} from "../models/vacation.model";
+import {ResourceNotFound} from "../models/client-error";
 
 class VacationService {
 
@@ -12,6 +13,17 @@ class VacationService {
         const result = await dal.execute(sql, [vacation.destination, vacation.description, vacation.startDate, vacation.endDate, vacation.cost, vacation.img]) as ResultSetHeader;
         vacation.id = result.insertId;
 
+        return vacation;
+    }
+
+    public async updateVacation(id: number, vacation: Vacation): Promise<Vacation> {
+
+        vacation.validate();
+        const sql = "UPDATE all_vacations set destination = ?, description = ?, startDate = ?, endDate = ?, cost = ?, img = ? WHERE id = ?";
+        const result = await dal.execute(sql, [vacation.destination, vacation.description, vacation.startDate, vacation.endDate, vacation.cost, vacation.img, id]) as ResultSetHeader;
+        if (result.affectedRows === 0) {
+            throw new ResourceNotFound(id);
+        }
         return vacation;
     }
 
