@@ -6,18 +6,14 @@ import {ResourceNotFound} from "../models/client-error";
 class VacationService {
 
     public async addVacation(vacation: Vacation): Promise<Vacation> {
-
         vacation.validate();
         const sql = "INSERT INTO all_vacations (destination, description, startDate, endDate, cost, img) VALUES (?, ?, ?, ?, ?, ?)";
-
         const result = await dal.execute(sql, [vacation.destination, vacation.description, vacation.startDate, vacation.endDate, vacation.cost, vacation.img]) as ResultSetHeader;
         vacation.id = result.insertId;
-
         return vacation;
     }
 
     public async updateVacation(id: number, vacation: Vacation): Promise<Vacation> {
-
         vacation.validate();
         const sql = "UPDATE all_vacations set destination = ?, description = ?, startDate = ?, endDate = ?, cost = ?, img = ? WHERE id = ?";
         const result = await dal.execute(sql, [vacation.destination, vacation.description, vacation.startDate, vacation.endDate, vacation.cost, vacation.img, id]) as ResultSetHeader;
@@ -36,20 +32,14 @@ class VacationService {
     }
 
     public async getVacationList(): Promise<Vacation[]> {
-
         const sql = "SELECT * FROM all_vacations";
-
         const vacationList = await dal.execute(sql) as Vacation[];
-
         return vacationList;
     }
 
     public async getVacationListOffset(limit: number, offset: number): Promise<Vacation[]> {
-
         const sql = "SELECT * FROM all_vacations LIMIT ? OFFSET ?";
-
         const vacationList = await dal.execute(sql, [limit, offset]) as Vacation[];
-
         return vacationList;
     }
 
