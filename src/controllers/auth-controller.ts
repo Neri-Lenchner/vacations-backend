@@ -1,7 +1,7 @@
 import express, {Request, Response} from "express";
 import {StatusCode} from "../models/enums";
 import {User} from "../models/user.model";
-import {userService} from "../services/user-service";
+import {authService} from "../services/auth-service";
 import {Credentials} from "../models/credentials.model";
 
 class AuthController {
@@ -17,14 +17,14 @@ class AuthController {
         console.log("Register called, request.body:", request.body);
         const user: User = new User(request.body);
 
-        const token: string = await userService.register(user);
+        const token: string = await authService.register(user);
         response.status(StatusCode.Created).json({token});
     }
 
     public async login(request: Request, response: Response) {
         // console.log("Login called, request.body:", request.body);
         const credentials: Credentials = new Credentials(request.body);
-        const token = await userService.login(credentials);
+        const token = await authService.login(credentials);
         response.json({token});
     }
 

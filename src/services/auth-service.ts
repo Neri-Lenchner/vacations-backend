@@ -6,7 +6,7 @@ import {securityService} from "./security-service";
 import {Credentials} from "../models/credentials.model";
 import bcrypt from "bcrypt";
 
-class UserService {
+class AuthService {
 
     public async register(user: User): Promise<string> {
 
@@ -46,4 +46,4 @@ class UserService {
 
 }
 
-export const userService = new UserService();
+export const authService = new AuthService();
