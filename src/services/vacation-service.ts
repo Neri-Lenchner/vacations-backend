@@ -27,6 +27,14 @@ class VacationService {
         return vacation;
     }
 
+    public async deleteVacation(id: number): Promise<void> {
+        const sql = "DELETE FROM all_vacations WHERE id = ?";
+        const result = await dal.execute(sql, [id]) as ResultSetHeader;
+        if (result.affectedRows === 0) {
+            throw new ResourceNotFound(id);
+        }
+    }
+
     public async getVacationList(): Promise<Vacation[]> {
 
         const sql = "SELECT * FROM all_vacations";

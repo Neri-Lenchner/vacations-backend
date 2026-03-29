@@ -14,6 +14,7 @@ class VacationController {
         this.router.post("/api/vacation", this.addVacation);
         this.router.get("/api/vacation-list/", this.getVacationList);
         this.router.put("/api/vacation/:id", this.updateVacation);
+        this.router.delete("/api/vacation/:id", this.deleteVacation);
 
     }
 
@@ -30,7 +31,11 @@ class VacationController {
         response.json(vacationFromDB);
     }
 
-
+    public async deleteVacation(request: Request, response: Response) {
+        const id = +request.params.id;
+        await vacationService.deleteVacation(id);
+        response.sendStatus(StatusCode.NoContent);
+    }
 
     public async getVacationList(request: Request, response: Response) {
         const vacationList = await vacationService.getVacationList();
