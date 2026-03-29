@@ -44,6 +44,15 @@ class VacationService {
         return vacationList;
     }
 
+    public async getVacationListOffset(limit: number, offset: number): Promise<Vacation[]> {
+
+        const sql = "SELECT * FROM all_vacations LIMIT ? OFFSET ?";
+
+        const vacationList = await dal.execute(sql, [limit, offset]) as Vacation[];
+
+        return vacationList;
+    }
+
 }
 
 export const vacationService = new VacationService();
