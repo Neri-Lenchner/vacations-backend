@@ -1,10 +1,7 @@
 import express, {Request, Response} from "express";
-import {ResultSetHeader} from "mysql2";
-import {ResourceNotFound} from "../models/client-error";
 import {StatusCode} from "../models/enums";
 import {Vacation} from "../models/vacation.model";
 import {vacationService} from "../services/vacation-service";
-import {dal} from "../utils/dal";
 
 class VacationController {
 
