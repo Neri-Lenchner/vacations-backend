@@ -19,7 +19,6 @@ class UserService {
             throw new ResourceNotFound(id);
         }
         return user;
-
     }
 
     public async updateUser(id: number, user: User): Promise<void> {
@@ -38,6 +37,7 @@ class UserService {
             throw new ResourceNotFound(id);
         }
     }
+
 }
 
 export const userService = new UserService();

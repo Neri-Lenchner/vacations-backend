@@ -2,6 +2,7 @@ import {ResultSetHeader} from "mysql2";
 import {dal} from "../utils/dal";
 import {Vacation} from "../models/vacation.model";
 import {ResourceNotFound} from "../models/client-error";
+import {appConfig} from "../utils/app-config";
 
 class VacationService {
 
@@ -37,9 +38,9 @@ class VacationService {
         return vacationList;
     }
 
-    public async getVacationListOffset(limit: number, offset: number): Promise<Vacation[]> {
+    public async getVacationListOffset(offset: number): Promise<Vacation[]> {
         const sql = "SELECT * FROM all_vacations LIMIT ? OFFSET ?";
-        const vacationList = await dal.execute(sql, [limit, offset]) as Vacation[];
+        const vacationList = await dal.execute(sql, [appConfig.offsetLimit, offset]) as Vacation[];
         return vacationList;
     }
 

@@ -17,14 +17,14 @@ class VacationController {
 
     public async addVacation(request: Request, response: Response): Promise<void> {
         const vacation: Vacation = new Vacation(request.body);
-        const vacationFromDB = await vacationService.addVacation(vacation);
+        const vacationFromDB: Vacation = await vacationService.addVacation(vacation);
         response.status(StatusCode.Created).json(vacationFromDB);
     }
 
     public async updateVacation(request: Request, response: Response): Promise<void> {
-        const id = +request.params.id;
+        const id: number = +request.params.id;
         const vacation: Vacation = new Vacation(request.body);
-        const vacationFromDB = await vacationService.updateVacation(id, vacation);
+        const vacationFromDB: Vacation = await vacationService.updateVacation(id, vacation);
         response.json(vacationFromDB);
     }
 
@@ -39,10 +39,10 @@ class VacationController {
         response.json(vacationList);
     }
 
-    public async getVacationListOffset(request: Request, response: Response) {
-        const limit: number = Number(request.query.limit) || 10;
+    public async getVacationListOffset(request: Request, response: Response): Promise<void> {
+
         const offset: number = Number(request.query.offset) || 0;
-        const vacationList: Vacation[] = await vacationService.getVacationListOffset(limit, offset);
+        const vacationList: Vacation[] = await vacationService.getVacationListOffset(offset);
         response.json(vacationList);
     }
 
