@@ -10,7 +10,7 @@ class AuthController {
 
     constructor() {
         this.router.post("/api/auth/register", this.register);
-        this.router.post("/api/auth/login/", this.login);
+        this.router.post("/api/auth/login", this.login);
     }
 
     public async register(request: Request, response: Response) {

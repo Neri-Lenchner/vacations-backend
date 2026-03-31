@@ -16,7 +16,7 @@ class AuthService {
         user.password = await securityService.hash(user.password);
         console.log(user.password);
 
-        const sql = "insert into users (firstName, lastName, email, password, isAdmin) VALUES (?, ?, ?, ? ,?)";
+        const sql = "INSERT INTO users (firstName, lastName, email, password, isAdmin) VALUES (?, ?, ?, ? ,?)";
 
         const result = await dal.execute(sql, [user.firstName, user.lastName, user.email, user.password, user.isAdmin]) as ResultSetHeader;
         user.id = result.insertId
