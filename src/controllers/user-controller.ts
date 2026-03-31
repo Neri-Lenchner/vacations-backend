@@ -9,6 +9,7 @@ class UserController {
 
     constructor() {
         this.router.get("/api/users/", this.getUserList);
+        this.router.get("/api/users/:id", this.getUserList);
         this.router.put("/api/users/:id", this.updateUser);
         this.router.delete("/api/users/:id", this.deleteUser);
     }
@@ -16,6 +17,12 @@ class UserController {
     public async getUserList(request: Request, response: Response) {
         const userList: User[] = await userService.getUserList();
         response.json(userList);
+    }
+
+    public async user(request: Request, response: Response) {
+        const id = +request.params.id;
+        const user = await userService.getUser(id);
+        response.json(user);
     }
 
     public async updateUser(request: Request, response: Response) {

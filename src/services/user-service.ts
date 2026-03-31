@@ -11,6 +11,17 @@ class UserService {
         return userList
     }
 
+    public async getUser(id: number): Promise<User> {
+        const sql = `SELECT * FROM users WHERE id = ?`;
+        const userArr = await dal.execute(sql, [id]) as User[];
+        const user = userArr[0];
+        if (!user) {
+            throw new ResourceNotFound(id);
+        }
+        return user;
+
+    }
+
     public async updateUser(id: number, user: User): Promise<void> {
         user.validate();
         const sql = "UPDATE users SET firstName = ?, lastName = ?, email = ?, password = ?, isAdmin = ? WHERE id = ?";
