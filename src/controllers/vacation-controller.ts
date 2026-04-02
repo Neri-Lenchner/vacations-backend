@@ -45,11 +45,21 @@ class VacationController {
         response.json(vacationList);
     }
 
+    // public async getVacationListOffset(request: Request, response: Response): Promise<void> {
+    //     const offset: number = Number(request.query.offset) || 0;
+    //     const vacationList: Vacation[] = await vacationService.getVacationListOffset(offset);
+    //     response.json(vacationList);
+    // }
+
     public async getVacationListOffset(request: Request, response: Response): Promise<void> {
         const offset: number = Number(request.query.offset) || 0;
-        const vacationList: Vacation[] = await vacationService.getVacationListOffset(offset);
+        const limit: number = Number(request.query.limit) || 10;
+
+        const vacationList: Vacation[] = await vacationService.getVacationListOffset(offset, limit);
         response.json(vacationList);
     }
+
+
 
 }
 

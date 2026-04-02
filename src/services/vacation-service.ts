@@ -38,9 +38,21 @@ class VacationService {
         return vacationList;
     }
 
-    public async getVacationListOffset(offset: number): Promise<Vacation[]> {
-        const sql = "SELECT * FROM all_vacations LIMIT ? OFFSET ?";
-        const vacationList = await dal.execute(sql, [appConfig.offsetLimit, offset]) as Vacation[];
+    public async getVacationListOffset(offset: number, limit: number): Promise<Vacation[]> {
+        // const sql = "SELECT * FROM all_vacations LIMIT ? OFFSET ?";
+        // if (limit > appConfig.offsetLimit) {
+        //     throw new Error ("Limit exceeds maximum allowed");
+        // }
+
+        if (limit <= 0 || limit > appConfig.offsetLimit) {
+            throw new Error("Invalid limit value");
+        }
+
+        // const sql = "SELECT * FROM vacations LIMIT ? OFFSET ?";
+
+        const sql = "SELECT * FROM vacations ORDER BY startDate DESC LIMIT ? OFFSET ?";
+
+        const vacationList = await dal.execute(sql, [limit, offset]) as Vacation[];
         return vacationList;
     }
 
