@@ -50,7 +50,7 @@ class VacationService {
 
         // const sql = "SELECT * FROM vacations LIMIT ? OFFSET ?";
 
-        const sql = "SELECT * FROM vacations ORDER BY startDate DESC LIMIT ? OFFSET ?";
+        const sql = "SELECT * FROM all_vacations ORDER BY startDate DESC LIMIT ? OFFSET ?";
 
         const vacationList = await dal.execute(sql, [limit, offset]) as Vacation[];
         return vacationList;
