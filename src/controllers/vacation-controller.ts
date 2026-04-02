@@ -8,8 +8,8 @@ class VacationController {
     router = express.Router();
 
     constructor() {
-        this.router.get("/api/vacation/", this.getVacationListOffset);
-        this.router.get("/api/vacation-list/", this.getVacationList);
+        this.router.get("/api/vacations/", this.getVacationListOffset);
+        // this.router.get("/api/vacation-list/", this.getVacationList); // no option to get a list with no offset
         this.router.get("/api/vacations/count/", this.getVacationCount);  // /vacations/count
         this.router.post("/api/vacation", this.addVacation);
         this.router.put("/api/vacation/:id", this.updateVacation);
