@@ -10,9 +10,15 @@ class VacationController {
     constructor() {
         this.router.get("/api/vacation/", this.getVacationListOffset);
         this.router.get("/api/vacation-list/", this.getVacationList);
+        this.router.get("/api/vacations/count/", this.getVacationCount);  // /vacations/count
         this.router.post("/api/vacation", this.addVacation);
         this.router.put("/api/vacation/:id", this.updateVacation);
         this.router.delete("/api/vacation/:id", this.deleteVacation);
+    }
+
+    public async getVacationCount(request: Request, response: Response): Promise<void> {
+        const vacationCount = await vacationService.getVacationCount();
+        response.json(vacationCount);
     }
 
     public async addVacation(request: Request, response: Response): Promise<void> {
@@ -40,7 +46,6 @@ class VacationController {
     }
 
     public async getVacationListOffset(request: Request, response: Response): Promise<void> {
-
         const offset: number = Number(request.query.offset) || 0;
         const vacationList: Vacation[] = await vacationService.getVacationListOffset(offset);
         response.json(vacationList);

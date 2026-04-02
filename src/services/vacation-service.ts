@@ -1,4 +1,4 @@
-import {ResultSetHeader} from "mysql2";
+import {Query, QueryResult, ResultSetHeader} from "mysql2";
 import {dal} from "../utils/dal";
 import {Vacation} from "../models/vacation.model";
 import {ResourceNotFound} from "../models/client-error";
@@ -43,6 +43,29 @@ class VacationService {
         const vacationList = await dal.execute(sql, [appConfig.offsetLimit, offset]) as Vacation[];
         return vacationList;
     }
+
+    public async getVacationCount(): Promise<number> {
+        const sql = "SELECT COUNT(*) AS total FROM vacations.all_vacations;";
+
+        const result = await dal.execute(sql) as { total: number }[];
+
+        return Number(result[0].total);
+    }
+
+    // public async getVacationCount(): Promise<number> {
+    //     const sql = "SELECT COUNT(*) AS total FROM vacations.all_vacations;";
+    //
+    //     const result = await dal.execute(sql) as QueryResult;
+    //
+    //
+    //
+    //     // Extract the number from the result
+    //     const total: number = result[0].total;
+    //
+    //     // const Number(total)
+    //     return total;
+    // }
+
 
     // public async getVacationListOffset(limit: number, offset: number): Promise<Vacation[]> {
     //     const sql = "SELECT * FROM all_vacations LIMIT ? OFFSET ?";
