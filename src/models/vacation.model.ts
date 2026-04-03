@@ -26,7 +26,7 @@ export class Vacation {
         startDate: Joi.string().required(),
         endDate: Joi.string().required(),
         cost: Joi.number().required().positive(),
-        img: Joi.string().required(),
+        img: Joi.string().optional(),
         id: Joi.number().optional().positive()
     });
 
