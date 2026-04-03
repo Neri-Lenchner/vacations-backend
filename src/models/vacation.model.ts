@@ -7,7 +7,7 @@ export class Vacation {
     public startDate: string;
     public endDate: string;
     public cost: number;
-    public img: string;
+    public imageName: string;
     public id?: number;
 
     constructor(vacation: Vacation) {
@@ -16,7 +16,7 @@ export class Vacation {
         this.startDate = vacation.startDate;
         this.endDate = vacation.endDate;
         this.cost = vacation.cost;
-        this.img = vacation.img;
+        this.imageName = vacation.imageName;
         this.id = vacation.id;
     }
 
