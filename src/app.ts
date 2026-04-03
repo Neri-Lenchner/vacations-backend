@@ -5,6 +5,7 @@ import {errorMiddleware} from "./middleware/error-middleware";
 import {authController} from "./controllers/auth-controller";
 import {userController} from "./controllers/user-controller";
 import {vacationController} from "./controllers/vacation-controller";
+import {followersController} from "./controllers/followersController";
 
 
 class App {
@@ -17,6 +18,7 @@ class App {
         server.use(authController.router);
         server.use(userController.router);
         server.use(vacationController.router);
+        server.use(followersController.router);
         server.use(errorMiddleware.serverError);
         server.use(errorMiddleware.catchAll);
 

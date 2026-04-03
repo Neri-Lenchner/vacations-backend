@@ -1,12 +1,13 @@
 import {dal} from '../utils/dal';
+import {Follower} from "../models/follower.model";
 
-class FollowerService {
+class FollowersService {
 
     public async getFollowersList() {
         const sql = `SELECT * FROM followers`;
-        const followersList = await dal.execute(sql);
+        const followersList = await dal.execute(sql) as Follower[];
         return followersList;
     }
 }
 
-export const followerService = new FollowerService();
+export const followersService = new FollowersService();
