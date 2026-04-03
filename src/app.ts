@@ -13,7 +13,6 @@ class App {
         server.use(cors());
         server.use("uploads", express.static("uploads"));
         server.use(express.json());
-
         server.use(loggerMiddleware.consoleLog);
         server.use(authController.router);
         server.use(userController.router);
