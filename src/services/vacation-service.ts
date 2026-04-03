@@ -9,7 +9,7 @@ class VacationService {
     public async addVacation(vacation: Vacation): Promise<Vacation> {
         vacation.validate();
         const sql = "INSERT INTO all_vacations (destination, description, startDate, endDate, cost, img) VALUES (?, ?, ?, ?, ?, ?)";
-        const result = await dal.execute(sql, [vacation.destination, vacation.description, vacation.startDate, vacation.endDate, vacation.cost, vacation.img]) as ResultSetHeader;
+        const result = await dal.execute(sql, [vacation.destination, vacation.description, vacation.startDate, vacation.endDate, vacation.cost, vacation.imageName]) as ResultSetHeader;
         vacation.id = result.insertId;
         return vacation;
     }
@@ -17,7 +17,7 @@ class VacationService {
     public async updateVacation(id: number, vacation: Vacation): Promise<Vacation> {
         vacation.validate();
         const sql = "UPDATE all_vacations set destination = ?, description = ?, startDate = ?, endDate = ?, cost = ?, img = ? WHERE id = ?";
-        const result = await dal.execute(sql, [vacation.destination, vacation.description, vacation.startDate, vacation.endDate, vacation.cost, vacation.img, id]) as ResultSetHeader;
+        const result = await dal.execute(sql, [vacation.destination, vacation.description, vacation.startDate, vacation.endDate, vacation.cost, vacation.imageName, id]) as ResultSetHeader;
         if (result.affectedRows === 0) {
             throw new ResourceNotFound(id);
         }
