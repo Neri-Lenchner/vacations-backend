@@ -6,7 +6,7 @@ class FollowersController {
     public router = express.Router();
 
     constructor() {
-        this.router.get("/api/followers/", this.getFollowersList);
+        this.router.get("/api/vacations/followers/", this.getFollowersList);
     }
 
     public async getFollowersList(request: Request, response: Response): Promise<void> {
