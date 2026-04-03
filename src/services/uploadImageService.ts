@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     }
 })
 
-class UpdateImageService {
+class UploadImageService {
     public upload = multer({
         storage,
         fileFilter(req, file, callback) {
@@ -22,4 +22,4 @@ class UpdateImageService {
     });
 }
 
-export const updateImageService = new UpdateImageService();
+export const uploadImageService = new UploadImageService();

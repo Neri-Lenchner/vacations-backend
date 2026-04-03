@@ -2,6 +2,7 @@ import express, {Request, Response} from "express";
 import {StatusCode} from "../models/enums";
 import {Vacation} from "../models/vacation.model";
 import {vacationService} from "../services/vacation-service";
+import {uploadImageService} from "../services/uploadImageService";
 
 class VacationController {
 
@@ -11,7 +12,7 @@ class VacationController {
         this.router.get("/api/vacations/", this.getVacationListOffset);
         // this.router.get("/api/vacation-list/", this.getVacationList); // no option to get a list with no offset
         this.router.get("/api/vacations/count/", this.getVacationCount);  // /vacations/count
-        this.router.post("/api/vacation", this.addVacation);
+        this.router.post("/api/vacation", uploadImageService.upload.single("image"), this.addVacation);
         this.router.put("/api/vacation/:id", this.updateVacation);
         this.router.delete("/api/vacation/:id", this.deleteVacation);
     }
@@ -23,6 +24,7 @@ class VacationController {
 
     public async addVacation(request: Request, response: Response): Promise<void> {
         const vacation: Vacation = new Vacation(request.body);
+        vacation.imageName = request.file?.filename
         const vacationFromDB: Vacation = await vacationService.addVacation(vacation);
         response.status(StatusCode.Created).json(vacationFromDB);
     }

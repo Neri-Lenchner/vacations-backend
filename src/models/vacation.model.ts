@@ -7,7 +7,7 @@ export class Vacation {
     public startDate: string;
     public endDate: string;
     public cost: number;
-    public imageName: string;
+    public imageName?: string;
     public id?: number;
 
     constructor(vacation: Vacation) {
