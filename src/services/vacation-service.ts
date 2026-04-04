@@ -64,6 +64,12 @@ class VacationService {
         return Number(result[0].total);
     }
 
+    public async getUsersFollowedVacations(id: number): Promise<Vacation[]> {
+        const sql = `SELECT v.* FROM all_vacations v JOIN folowers f ON v.id = f.vacationId WHERE f.userId = ? ORDER BY v.startDate`;
+        const followedVacations = await dal.execute(sql) as Vacation[];
+        return followedVacations;
+    }
+
     // public async getVacationCount(): Promise<number> {
     //     const sql = "SELECT COUNT(*) AS total FROM vacations.all_vacations;";
     //
