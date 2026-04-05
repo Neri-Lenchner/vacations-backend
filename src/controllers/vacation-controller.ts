@@ -57,7 +57,7 @@ class VacationController {
         response.json(vacationList);
     }
 
-    public async getActiveVacations() {
+    public async getActiveVacations(request: Request, response: Response): Promise<void> {
         const vacationList = await vacationService.getActiveVacations();
         response.json(vacationList);
     }

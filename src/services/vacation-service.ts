@@ -70,14 +70,14 @@ class VacationService {
         return followedVacations;
     }
 
-    public async getActiveVacations() {
-        const sql = ` SELECT * FROM vacations WHERE startDate <= CURDATE() AND endDate >= CURDATE()`;
+    public async getActiveVacations(): Promise<Vacation[]> {
+        const sql = `SELECT * FROM all_vacations WHERE startDate <= CURDATE() AND endDate >= CURDATE()`;
         const vacations = await dal.execute(sql) as Vacation[];
         return vacations;
     }
 
     public async getUpcomingVacations(): Promise<Vacation[]> {
-        const sql = `SELECT * FROM vacations WHERE startDate > CURDATE()`;
+        const sql = `SELECT * FROM all_vacations WHERE startDate > CURDATE()`;
         const vacations = await dal.execute(sql) as Vacation[];
         return vacations;
     }
