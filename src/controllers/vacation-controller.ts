@@ -14,11 +14,11 @@ class VacationController {
         this.router.get("/api/vacations/user/:id/followers/", this.getUsersFollowedVacations);
         this.router.get("/api/vacations/upcoming/", this.getUpcomingVacations);
         this.router.get("/api/vacations/active/", this.getActiveVacations);
-        // this.router.get("/api/vacation-list/", this.getVacationList); // no option to get a list with no offset
-        this.router.get("/api/vacations/count/", this.getVacationCount);  // /vacations/count
+        this.router.get("/api/vacations/count/", this.getVacationCount);
         this.router.post("/api/vacation", uploadImageService.upload.single("image"), this.addVacation);
         this.router.put("/api/vacation/:id", this.updateVacation);
         this.router.delete("/api/vacation/:id", this.deleteVacation);
+        // this.router.get("/api/vacation-list/", this.getVacationList); // no option to get a list with no offset
     }
 
     public async getVacationCount(request: Request, response: Response): Promise<void> {
