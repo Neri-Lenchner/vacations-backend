@@ -11,7 +11,8 @@ class VacationController {
 
     constructor() {
         this.router.get("/api/vacations/", this.getVacationListOffset);
-        this.router.get("/api/vacations/followers", this.getUsersFollowedVacations);
+        this.router.get("/api/vacations/user/:id/followers/", this.getUsersFollowedVacations);
+        this.router.get("/api/vacations/upcoming", this.getUnstartedVacations);
         // this.router.get("/api/vacation-list/", this.getVacationList); // no option to get a list with no offset
         this.router.get("/api/vacations/count/", this.getVacationCount);  // /vacations/count
         this.router.post("/api/vacation", uploadImageService.upload.single("image"), this.addVacation);
@@ -48,6 +49,11 @@ class VacationController {
         const id: number = +request.params.id;
         const followedVacations = await vacationService.getUsersFollowedVacations(id);
         response.json(followedVacations);
+    }
+
+    public async getUnstartedVacations(request: Request, response: Response): Promise<void>  {
+        const vacationList = await vacationService.getUnstartedVacations();
+        response.json(vacationList);
     }
 
 

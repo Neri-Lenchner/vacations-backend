@@ -65,9 +65,15 @@ class VacationService {
     }
 
     public async getUsersFollowedVacations(id: number): Promise<Vacation[]> {
-        const sql = `SELECT v.* FROM all_vacations v JOIN folowers f ON v.id = f.vacationId WHERE f.userId = ? ORDER BY v.startDate`;
-        const followedVacations = await dal.execute(sql) as Vacation[];
+        const sql = `SELECT v.* FROM all_vacations v JOIN followers f ON v.id = f.vacationId WHERE f.userId = ? ORDER BY v.startDate`;
+        const followedVacations = await dal.execute(sql, [id]) as Vacation[];
         return followedVacations;
+    }
+
+    public async getUnstartedVacations(): Promise<Vacation[]> {
+        const sql = `SELECT * FROM vacations WHERE startDate > CURDATE()`;
+        const vacations = await dal.execute(sql) as Vacation[];
+        return vacations;
     }
 
     // public async getVacationCount(): Promise<number> {
