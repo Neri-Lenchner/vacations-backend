@@ -1,9 +1,8 @@
-import express, {Request, response, Response} from "express";
+import express, {Request,Response} from "express";
 import {StatusCode} from "../models/enums";
 import {Vacation} from "../models/vacation.model";
 import {vacationService} from "../services/vacation-service";
 import {uploadImageService} from "../services/uploadImageService";
-import {dal} from "../utils/dal";
 
 class VacationController {
 
